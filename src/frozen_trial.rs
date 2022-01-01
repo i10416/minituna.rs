@@ -16,13 +16,12 @@ pub enum TrialData<V> {
         #[serde(with = "StudyId")]
         study_id: Uuid,
         trial_id: usize,
-        // trial_params: HashMap<String,String>
         trial_params: HashMap<String, String>,
     },
     // Pruned {}
 }
 
-#[derive(Serialize, Deserialize)] // implicitly require T to be deserializable
+#[derive(Serialize, Deserialize)] // implicitly require T to be (de)serializable
 pub struct ParamData<T> {
     value: T,
     dist_name: String,
