@@ -81,6 +81,14 @@ impl<'a, V: PartialOrd + Send + Sync + Copy + Serialize> Study<InmemoryStorage, 
     }
 }
 
+impl StudyInstance<InmemoryStorage>{
+    fn new() ->Self{
+        Self{
+            id: Uuid::new_v4(),
+            storage: InmemoryStorage::new(),   
+        }
+    }
+}
 mod test {
 
     use uuid::Uuid;
@@ -90,10 +98,7 @@ mod test {
     use super::{Study, StudyInstance};
 
     async fn test() {
-        let mut s = StudyInstance {
-            id: Uuid::new_v4(),
-            storage: InmemoryStorage::new(),
-        };
+        let mut s = StudyInstance::new();
         s.optimize(
             |t| async move {
                 let x = t.sample_uniform::<i32, f32>("x", 0, 100).await;

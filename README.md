@@ -4,6 +4,22 @@ Simplified version of __Optuna__, famous Python library for hyper parameter tuni
 
 API design is mainly based on [minituna](https://github.com/CyberAgentAILab/minituna) by [CyberAgentAILab](https://github.com/CyberAgentAILab).
 
+## example
+
+```rust
+let mut s = StudyInstance::new();
+
+s.optimize(
+    |t| async move {
+        let x = t.sample_uniform::<i32, f32>("x", 0, 100).await;
+        let y = t.sample_uniform::<f32, f32>("y", -100.0, 100.0).await;
+        (x * x) as f32 + y
+    },
+    100,
+)
+.await;
+s.get_best_trial().await;
+```
 ## difference from minituna
 
 `minituna.rs`
